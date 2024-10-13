@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-jp-mtpu3w)%gp0^+t&c_qyk+qhqn7r^)k5uv_u0cx5o(sp!7$j"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['your-heroku-app-name.herokuapp.com']
 
 
 # Application definition
@@ -80,6 +82,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+        'default': dj_database_url.config(default='postgres://localhost')
     }
 }
 
@@ -149,4 +152,5 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'movies.CustomUser'
 
 
-
+import django_heroku
+django_heroku.settings(locals())
